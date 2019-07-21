@@ -458,6 +458,7 @@ struct weapon_dice {
 			  otmp->otyp==AKLYS || \
 			  otmp->oartifact==ART_SOL_VALTIVA || \
 			  otmp->oartifact==ART_SHADOWLOCK || \
+			  otmp->oartifact==ART_DEATH_SPEAR_OF_VHAERUN || \
 			  (otmp->oartifact==ART_PEN_OF_THE_VOID && otmp->ovar1&SEAL_MARIONETTE ) \
 			 ))
 #define is_spear(otmp)	(otmp->oclass == WEAPON_CLASS && \
@@ -673,6 +674,8 @@ struct weapon_dice {
 				|| (otmp)->oartifact == ART_TROLLSBANE\
 				|| (otmp)->oartifact == ART_PEN_OF_THE_VOID\
 				|| ((otmp)->oartifact == ART_CLARENT && uwep && uwep->oartifact==ART_EXCALIBUR)\
+				|| ((otmp)->oartifact == ART_FROST_BRAND && uwep && uwep->oartifact==ART_FIRE_BRAND)\
+				|| ((otmp)->oartifact == ART_FIRE_BRAND && uwep && uwep->oartifact==ART_FROST_BRAND)\
 				|| ((otmp)->oartifact == ART_BLADE_DANCER_S_DAGGER && uwep && uwep->oartifact==ART_BLADE_SINGER_S_SPEAR)\
 				|| ((otmp)->oartifact == ART_BLADE_DANCER_S_DAGGER && uwep && uwep->oartifact==ART_SODE_NO_SHIRAYUKI)\
 				|| ((otmp)->oartifact == ART_FRIEDE_S_SCYTHE && uwep && uwep->oartifact==ART_PROFANED_GREATSCYTHE)\

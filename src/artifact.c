@@ -228,7 +228,9 @@ hack_artifacts()
 				artilist[ART_ROD_OF_LORDLY_MIGHT].role = NON_PM;
 				artilist[ART_SCEPTRE_OF_LOLTH].spfx &= ~(SPFX_NOGEN);
 			} else {
-				artilist[ART_ROD_OF_LORDLY_MIGHT].alignment = A_NEUTRAL;
+				artilist[ART_ROD_OF_LORDLY_MIGHT].spfx |= SPFX_NOGEN;
+				artilist[ART_ROD_OF_LORDLY_MIGHT].role = NON_PM;
+				artilist[ART_DEATH_SPEAR_OF_VHAERUN].spfx &= ~(SPFX_NOGEN);
 			}
 		} else if(Race_if(PM_DWARF) && urole.ldrnum == PM_DAIN_II_IRONFOOT){
 			artilist[ART_ROD_OF_LORDLY_MIGHT].spfx |= SPFX_NOGEN;
@@ -366,32 +368,35 @@ struct obj *otmp;	/* existing object */
 	int prop = rnd(13);
 	
 	if(otmp->oclass == WEAPON_CLASS || is_weptool(otmp)){
-		if(!(--prop))
-			otmp->oproperties |= OPROP_FIREW; //1
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_COLDW; //2
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_ELECW; //3
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_ACIDW; //4
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_MAGCW; //5
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_ANARW; //6
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_CONCW; //7
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_AXIOW; //8
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_HOLYW; //9
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_UNHYW; //10
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_WATRW; //11
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_DEEPW; //12
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_PSIOW; //13
+		switch(prop)
+		{
+		case 1:
+			otmp->oproperties |= OPROP_FIREW; break;
+		case 2:
+			otmp->oproperties |= OPROP_COLDW; break;
+		case 3:
+			otmp->oproperties |= OPROP_ELECW; break;
+		case 4:
+			otmp->oproperties |= OPROP_ACIDW; break;
+		case 5:
+			otmp->oproperties |= OPROP_MAGCW; break;
+		case 6:
+			otmp->oproperties |= OPROP_ANARW; break;
+		case 7:
+			otmp->oproperties |= OPROP_CONCW; break;
+		case 8:
+			otmp->oproperties |= OPROP_AXIOW; break;
+		case 9:
+			otmp->oproperties |= OPROP_HOLYW; break;
+		case 10:
+			otmp->oproperties |= OPROP_UNHYW; break;
+		case 11:
+			otmp->oproperties |= OPROP_WATRW; break;
+		case 12:
+			otmp->oproperties |= OPROP_DEEPW; break;
+		case 13:
+			otmp->oproperties |= OPROP_PSIOW; break;
+		}
 	}
 	
 	return otmp;
@@ -408,31 +413,33 @@ struct obj *otmp;	/* existing object */
 	int prop = rnd(12);
 	
 	if(otmp->oclass == WEAPON_CLASS || is_weptool(otmp)){
-		otmp->oproperties |= OPROP_LESSW;
-		if(!(--prop))
-			otmp->oproperties |= OPROP_FIREW; //1
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_COLDW; //2
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_ELECW; //3
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_ACIDW; //4
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_MAGCW; //5
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_ANARW; //6
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_CONCW; //7
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_AXIOW; //8
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_HOLYW; //9
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_UNHYW; //10
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_WATRW; //11
-		else if(!(--prop))
-			otmp->oproperties |= OPROP_PSIOW; //12
+		switch(prop)
+		{
+		case 1:
+			otmp->oproperties |= OPROP_FIREW; break;
+		case 2:
+			otmp->oproperties |= OPROP_COLDW; break;
+		case 3:
+			otmp->oproperties |= OPROP_ELECW; break;
+		case 4:
+			otmp->oproperties |= OPROP_ACIDW; break;
+		case 5:
+			otmp->oproperties |= OPROP_MAGCW; break;
+		case 6:
+			otmp->oproperties |= OPROP_ANARW; break;
+		case 7:
+			otmp->oproperties |= OPROP_CONCW; break;
+		case 8:
+			otmp->oproperties |= OPROP_AXIOW; break;
+		case 9:
+			otmp->oproperties |= OPROP_HOLYW; break;
+		case 10:
+			otmp->oproperties |= OPROP_UNHYW; break;
+		case 11:
+			otmp->oproperties |= OPROP_WATRW; break;
+		case 12:
+			otmp->oproperties |= OPROP_PSIOW; break;
+		}
 	}
 	
 	return otmp;
@@ -6213,6 +6220,21 @@ arti_invoke(obj)
 					mtmp->mhp =  mtmp->mhpmax;
 				}
 			}
+		break;
+		case DEATH_TCH:
+			getdir((char *)0);
+			if (!isok(u.ux + u.dx, u.uy + u.dy)) break;
+			mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
+			
+			pline("You reach out and stab at %s's very soul.", mon_nam(mtmp));
+			if (nonliving_mon(mtmp) || is_demon(mtmp->data) || is_angel(mtmp->data)) 
+				pline("... but %s seems to lack one!", mon_nam(mtmp));
+			else if (ward_at(mtmp->mx,mtmp->my) == CIRCLE_OF_ACHERON)
+				pline("But %s is already beyond Acheron.", mon_nam(mtmp));
+			else 
+				xkilled(mtmp, 1);
+			
+			 
 		break;
 		case PETMASTER:{
 			int pet_effect = 0;
